@@ -3,6 +3,7 @@ const serveStatic = require('serve-static');
 const logger = require('./general/logger');
 const app = express();
 
+const port = Process.env.PORT || 3000;
 app.use(serveStatic(__dirname + "/dist/TataElxsi"));
 
 app.all('*', (req, res) => {
