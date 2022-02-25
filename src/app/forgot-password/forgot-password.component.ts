@@ -18,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   
   move_to_register(){
-    this.router.navigateByUrl('/register');
+    this.router.navigate(['/register']);
   }
   
   

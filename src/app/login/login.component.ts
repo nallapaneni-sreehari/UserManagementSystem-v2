@@ -7,6 +7,8 @@ import { first, map } from 'rxjs/operators';
 import { ConnectionService } from '../services/connection.service';
 import { UserDetails } from '../models/StructureClass';
 import { AdminFeedbackComponent } from '../admin-feedback/admin-feedback.component';
+import {HttpHeaders} from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -86,7 +88,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe({
           next: data => {
-            console.log("LoginData:::", data);
+            console.log("LoginData Live:::", data);
             this.LoginError = false;
             this.ServerError = false;
             // this.connectionService.getDetails().subscribe(data=>{
@@ -105,7 +107,18 @@ export class LoginComponent implements OnInit {
                       console.log("this.userStatus:::",this.userStatus , user.status);
                       if (user.status == "true") {
                         console.log("User Active");
-                        this.router.navigateByUrl('/dashboard');
+                        this.connectionService.header = new HttpHeaders({ 
+                          'Content-Type': 'application/json',
+                          'Authorization': 'Bearer ' + localStorage.getItem('CurrentUserToken')
+                       });
+                        this.connectionService.getDetails().subscribe(data=>{
+                          console.log("UserData after Login",data);
+                          if(data && data?.length > 0)
+                          {
+                            console.log("Now");
+                            this.router.navigateByUrl('dashboard');
+                          }
+                        });
                         // setTimeout(()=>{
                         //   this.router.navigateByUrl('/dashboard');
                         // }, 3000);
