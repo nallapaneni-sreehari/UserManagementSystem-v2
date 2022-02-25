@@ -10,8 +10,8 @@ app.all('*', (req, res) => {
     res.sendFile(__dirname + '/dist/TataElxsi/index.html');
 });
 
-app.listen(3000, () => {
-    console.log("App started running");
+app.listen(port, () => {
+    console.log(`App started running at ${port}`);
     logger.log('info', "App started running");
 
 });
