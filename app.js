@@ -10,7 +10,8 @@ app.use(serveStatic(__dirname + "/dist/TataElxsi"));
 app.use(cors());
 
 app.get("/worker.js", (req, res) => {
-    res.sendFile(__dirname + "/worker.js");
+    // res.sendFile(__dirname + "/worker.js");
+    res.sendFile(__dirname + '/public/worker.js');
 });
 
 app.all('*', (req, res) => {
